@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main.java.com.company.dao.WorkRecordDao">
+
+    <insert id="addWorkRecordForEmployee" useGeneratedKeys="true" keyProperty="id">
+        insert into work_record values
+        (NULL, #{uid}, #{overTimeNumText}, #{beLateNumText}, #{earlyNumText})
+    </insert>
+
+    <update id="updateWorkRecordForEmployee">
+        update work_record
+        set over_time_num_text = #{overTimeNumText}, belate_num_text = #{beLateNumText}, early_num_text = #{earlyNumText}
+        where id = #{id}
+    </update>
+
+    <select id="getWorkRecordByUId" resultType="WorkRecord" >
+        select * from work_record w,employee e,salary_general s where w.uid = e.uid and e.salary_general_id = s.id and w.uid = #{uid}
+    </select>
+
+    <select id="listWorkRecords" resultType="WorkRecord">
+        select * from work_record w,employee e,salary_general s where w.uid = e.uid and e.salary_general_id = s.id
+    </select>
+
+</mapper>

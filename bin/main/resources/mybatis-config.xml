@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="Employee" type="main.java.com.company.model.Employee"></typeAlias>
+        <typeAlias alias="WorkRecord" type="main.java.com.company.model.WorkRecord"></typeAlias>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://127.0.0.1:3306/salary_manage_sys?useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="main/resources/mapper/EmployeeDao.xml"/>
+        <mapper resource="main/resources/mapper/WorkRecordDao.xml"/>
+    </mappers>
+</configuration>

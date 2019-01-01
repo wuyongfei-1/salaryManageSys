@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main.java.com.company.dao.EmployeeDao">
+
+    <select id="getEmployeeByUserName" resultType="Employee">
+        select * from employee where `user_name` = #{userName}
+    </select>
+
+    <select id="getEmployeeByUserNameAndPassword" resultType="Employee">
+        select * from employee e, salary_general s where e.salary_general_id = s.id and e.`user_name` = #{userName} and e.`password` = #{password}
+    </select>
+
+    <insert id="addEmployee" useGeneratedKeys="true" keyProperty="uid" >
+        insert into employee
+        values
+        (NULL, #{name}, #{gender}, #{age}, #{userName}, #{password}, #{address}, #{phone}, #{salaryGeneralId}, #{role}, 1);
+    </insert>
+
+    <select id="listEmployee" resultType="Employee">
+        select * from employee;
+    </select>
+
+    <select id="getEmployeeByUId" parameterType="Integer" resultType="Employee">
+       select * from employee e, salary_general s where e.salary_general_id = s.id and e.uid = #{uid}
+    </select>
+
+    <update id="updateEmployeeById" parameterType="Employee">
+         update employee
+         set `name` = #{employee.name}, gender = #{employee.gender}, age = #{employee.age},
+         address = #{employee.address}, phone = #{employee.phone}
+        <if test="employee.salaryGeneralId != null and employee.salaryGeneralId > 0">
+            , salary_general_id = #{employee.salaryGeneralId}
+        </if>
+         where uid = #{employee.uid}
+    </update>
+
+</mapper>
